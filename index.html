@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Publishing</title>
+    <title>smeagolize</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img-nav/favicon.png">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -37,12 +37,10 @@
     <main class="flex-1 p-8 overflow-y-auto">
         <header class="flex justify-between items-center mb-6">
             <div class="flex items-center">
-                <img src="https://placehold.co/40x40/64748b/FFFFFF?text=Logo" alt="Smeagolize Logo"
-                    class="w-10 h-10 rounded-full mr-2">
+                <img src="img-logo/logo.png" alt="Smeagolize Logo" class="w-10 h-10 rounded-full mr-2">
                 <h2 class="text-2xl font-bold">Smeagolize</h2>
             </div>
             <div class="flex items-center space-x-4">
-                <div class="w-8 h-8 rounded-full bg-gray-600"></div>
             </div>
         </header>
 
@@ -90,7 +88,7 @@
                     <i class="fas fa-user-circle text-pink-400 mr-2"></i> Profile
                 </h3>
                 <div class="flex items-center space-x-4 mb-4">
-                    <div class="w-16 h-16 rounded-full bg-gray-500"></div>
+
                     <div>
                         <p class="font-bold text-gray-100">@epocalyx</p>
                         <p class="text-sm text-gray-400">Curated a content on all things ancient civilization,
@@ -110,18 +108,12 @@
                         <span class="font-bold text-gray-100">Likes</span>
                         <span class="text-pink-400">4,336</span>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="font-bold text-gray-100">Friends</span>
-                        <span class="text-pink-400">4</span>
-                    </div>
+
                     <div class="flex items-center space-x-2">
                         <span class="font-bold text-gray-100">Videos</span>
                         <span class="text-pink-400">15</span>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="font-bold text-gray-100">Region</span>
-                        <span class="text-pink-400">GB 🇬🇧</span>
-                    </div>
+
                 </div>
             </div>
 
@@ -149,14 +141,11 @@
                     <div>
                         <p class="text-gray-100 font-medium">Share & Save Rates</p>
                         <p class="text-2xl font-bold text-pink-400">Share <span class="text-pink-400">3.2%</span> Save
-                            <span class="text-pink-400">5.5%</span></p>
+                            <span class="text-pink-400">5.5%</span>
+                        </p>
                         <p class="text-gray-400 text-xs">% of followers who share/save content</p>
                     </div>
-                    <div>
-                        <p class="text-gray-100 font-medium">Vitality Score</p>
-                        <p class="text-2xl font-bold text-pink-400">5.16</p>
-                        <p class="text-gray-400 text-xs">How well content spreads beyond viewers</p>
-                    </div>
+
                     <div>
                         <p class="text-gray-100 font-medium">Avg. Views</p>
                         <p class="text-2xl font-bold text-pink-400">6,427</p>
@@ -262,20 +251,7 @@
                     cutout: '80%',
                     plugins: {
                         legend: {
-                            display: true,
-                            position: 'bottom',
-                            labels: {
-                                color: '#e5e7eb',
-                                padding: 10
-                            }
-                        },
-                        datalabels: {
-                            color: '#fff',
-                            formatter: (value, context) => {
-                                const total = context.chart.data.datasets[0].data.reduce((acc, curr) => acc + curr, 0);
-                                const percentage = Math.round((value / total) * 100);
-                                return `${percentage}%`;
-                            }
+                            display: false,
                         },
                         tooltip: {
                             callbacks: {
