@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smeagolize</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img-nav/favicon.png">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a2e;
+        }
+
+        .card-bg {
+            background-color: #262744;
+            border: 1px solid #3d3e69;
+        }
+
+        .smeagolize-gradient-text {
+            background-image: linear-gradient(to right, #e21c83, #ff4c94);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200">
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <img src="img-logo/logo.png" alt="Smeagolize Logo" class="w-10 h-10 rounded-full mr-2">
+                <h2 class="text-2xl font-bold">Smeagolize</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+            </div>
+        </header>
+
+        <!-- New search bar with social media platform selector -->
+        <div class="mb-6 relative">
+            <!-- Platform selection button -->
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer z-20"
+                id="platform-dropdown-button">
+                <i class="fab fa-tiktok text-pink-400"></i>
+            </div>
+            <!-- Fixed @ symbol and input field -->
+            <div class="relative w-full">
+                <span
+                    class="absolute left-10 inset-y-0 pl-2 pr-3 flex items-center text-gray-400 font-bold z-10">@</span>
+                <input type="text" placeholder="enter username"
+                    class="w-full card-bg text-gray-200 p-3 pl-16 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+            </div>
+
+            <!-- Platform dropdown menu -->
+            <div class="absolute top-12 left-0 w-48 card-bg rounded-lg shadow-lg z-10 hidden"
+                id="platform-dropdown-menu">
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded-lg transition-colors duration-200"
+                    data-platform="tiktok">
+                    <i class="fab fa-tiktok w-4 mr-2 text-pink-400"></i> TikTok
+                </a>
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded-lg transition-colors duration-200"
+                    data-platform="youtube">
+                    <i class="fab fa-youtube w-4 mr-2 text-red-500"></i> YouTube
+                </a>
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded-lg transition-colors duration-200"
+                    data-platform="instagram">
+                    <i class="fab fa-instagram w-4 mr-2 text-purple-400"></i> Instagram
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Profile Card -->
+            <div class="card-bg p-6 rounded-lg col-span-1 md:col-span-1">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="fas fa-user-circle text-pink-400 mr-2"></i> Profile
+                </h3>
+                <div class="flex items-center space-x-4 mb-4">
+
+                    <div>
+                        <p class="font-bold text-gray-100">@epocalyx</p>
+                        <p class="text-sm text-gray-400">Curated a content on all things ancient civilization,
+                            mythology, and more!</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-gray-100">Followers</span>
+                        <span class="text-pink-400">511</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-gray-100">Following</span>
+                        <span class="text-pink-400">16</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-gray-100">Likes</span>
+                        <span class="text-pink-400">4,336</span>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-gray-100">Videos</span>
+                        <span class="text-pink-400">15</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sentiment Analysis Card -->
+            <div class="card-bg p-6 rounded-lg col-span-1 md:col-span-1">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="fas fa-smile text-pink-400 mr-2"></i> Sentiment Analysis
+                </h3>
+                <div class="flex justify-center items-center h-48">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Performance Metrics Card -->
+            <div class="card-bg p-6 rounded-lg col-span-1 md:col-span-1">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="fas fa-chart-bar text-pink-400 mr-2"></i> Performance Metrics
+                </h3>
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <p class="text-gray-100 font-medium">Engagement Rate</p>
+                        <p class="text-2xl font-bold text-pink-400">74.83%</p>
+                        <p class="text-gray-400 text-xs">% of followers who interact with content</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-100 font-medium">Share & Save Rates</p>
+                        <p class="text-2xl font-bold text-pink-400">Share <span class="text-pink-400">3.2%</span> Save
+                            <span class="text-pink-400">5.5%</span>
+                        </p>
+                        <p class="text-gray-400 text-xs">% of followers who share/save content</p>
+                    </div>
+
+                    <div>
+                        <p class="text-gray-100 font-medium">Avg. Views</p>
+                        <p class="text-2xl font-bold text-pink-400">6,427</p>
+                        <p class="text-gray-400 text-xs">Typical views per video</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hashtag Collection Card -->
+            <div class="card-bg p-6 rounded-lg col-span-1 md:col-span-1">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="fas fa-hashtag text-pink-400 mr-2"></i> Hashtag Collection
+                </h3>
+                <div class="mb-4">
+                    <input type="text" placeholder="Search hashtags..."
+                        class="w-full bg-gray-700 text-white text-sm p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                </div>
+                <p class="text-sm text-gray-400 mb-4">Found 12 hashtags</p>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#history</span>
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#ancient</span>
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#archaeology</span>
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#mythology</span>
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#greece</span>
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#rome</span>
+                    <span class="bg-gray-700 px-3 py-1 rounded-full">#egypt</span>
+                </div>
+            </div>
+
+            <!-- Audience Demographics Card -->
+            <div class="card-bg p-6 rounded-lg col-span-1 md:col-span-1">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="fas fa-users text-pink-400 mr-2"></i> Audience Demographics
+                </h3>
+                <div class="flex justify-center items-center h-48">
+                    <canvas id="demographicsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Music Analysis Card -->
+            <div class="card-bg p-6 rounded-lg col-span-1 md:col-span-1">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="fas fa-music text-pink-400 mr-2"></i> Music Analysis
+                </h3>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-gray-100">suono originale - epocalyx</p>
+                            <p class="text-gray-400 text-xs">by Epocalyx</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold">1 video</p>
+                            <p class="text-gray-400 text-xs">25,966 avg views</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-gray-100">suono originale - epocalyx</p>
+                            <p class="text-gray-400 text-xs">by Epocalyx</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold">1 video</p>
+                            <p class="text-400 text-xs">25,966 avg views</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-gray-100">suono originale - epocalyx</p>
+                            <p class="text-gray-400 text-xs">by Epocalyx</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold">1 video</p>
+                            <p class="text-gray-400 text-xs">25,966 avg views</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.js setup for demographics chart
+            const ctx = document.getElementById('demographicsChart').getContext('2d');
+            const demographicsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Females 18-24', 'Males 18-24', 'Females 25-34', 'Males 25-34'],
+                    datasets: [{
+                        data: [40, 30, 15, 15],
+                        backgroundColor: [
+                            '#e21c83',
+                            '#ff4c94',
+                            '#3e5c76',
+                            '#2a9d8f'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '80%',
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart.js setup for sentiment analysis chart
+            const sentimentCtx = document.getElementById('sentimentChart').getContext('2d');
+            const sentimentChart = new Chart(sentimentCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['👍 Positive', '👎 Negative', '😐 Neutral'],
+                    datasets: [{
+                        data: [60, 25, 15],
+                        backgroundColor: [
+                            '#22c55e', // green
+                            '#ef4444', // red
+                            '#fde047' // yellow
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '80%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#e5e7eb',
+                                padding: 10
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Platform dropdown functionality
+            const platformButton = document.getElementById('platform-dropdown-button');
+            const platformMenu = document.getElementById('platform-dropdown-menu');
+            const platformIcon = platformButton.querySelector('i');
+            const platformItems = platformMenu.querySelectorAll('a');
+
+            // Toggle the dropdown menu visibility
+            platformButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevents the document click listener from firing immediately
+                platformMenu.classList.toggle('hidden');
+            });
+
+            // Handle platform selection
+            platformItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const platform = e.currentTarget.dataset.platform;
+
+                    // Update the main icon based on the selected platform
+                    if (platform === 'tiktok') {
+                        platformIcon.className = 'fab fa-tiktok text-pink-400';
+                    } else if (platform === 'youtube') {
+                        platformIcon.className = 'fab fa-youtube text-red-500';
+                    } else if (platform === 'instagram') {
+                        platformIcon.className = 'fab fa-instagram text-purple-400';
+                    }
+
+                    // Hide the dropdown after selection
+                    platformMenu.classList.add('hidden');
+                });
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            document.addEventListener('click', (e) => {
+                if (!platformButton.contains(e.target) && !platformMenu.contains(e.target)) {
+                    platformMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
